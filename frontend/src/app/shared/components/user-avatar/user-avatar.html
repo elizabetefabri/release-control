@@ -1,0 +1,169 @@
+<!-- Avatar (abre o menu de ações) -->
+<button
+  type="button"
+  class="ua__trigger"
+  (click)="menu.toggle($event)"
+  aria-label="Menu do usuário"
+  aria-haspopup="true"
+>
+  @if (photo()) {
+    <p-avatar [image]="photo()!" shape="circle" styleClass="sb__avatar" />
+  } @else {
+    <p-avatar [label]="initials()" shape="circle" styleClass="sb__avatar" />
+  }
+</button>
+
+<!-- Input de arquivo oculto para a foto -->
+<input
+  #photoInput
+  type="file"
+  accept="image/*"
+  class="ua__file"
+  (change)="onPhotoSelected($event)"
+/>
+
+<!-- Menu de ações -->
+<p-popover #menu appendTo="body">
+  <div class="ua-menu">
+    <span class="ua-menu__title">{{ user()?.name || 'Usuário' }}</span>
+    <span class="ua-menu__mail">{{ user()?.email }}</span>
+
+    <div class="ua-menu__group">
+      <button type="button" class="ua-menu__item" (click)="pickPhoto(photoInput); menu.hide()">
+        <app-icon [name]="photo() ? 'camera' : 'image-plus'" [size]="16" />
+        <span>{{ photo() ? 'Alterar foto' : 'Adicionar foto' }}</span>
+      </button>
+
+      @if (photo()) {
+        <button type="button" class="ua-menu__item" (click)="removePhoto(); menu.hide()">
+          <app-icon name="trash-2" [size]="16" />
+          <span>Remover foto</span>
+        </button>
+      }
+    </div>
+
+    <div class="ua-menu__group">
+      <button type="button" class="ua-menu__item" (click)="open('data'); menu.hide()">
+        <app-icon name="user-pen" [size]="16" />
+        <span>Editar dados</span>
+      </button>
+      <button type="button" class="ua-menu__item" (click)="open('email'); menu.hide()">
+        <app-icon name="mail" [size]="16" />
+        <span>Alterar e-mail</span>
+      </button>
+      <button type="button" class="ua-menu__item" (click)="open('password'); menu.hide()">
+        <app-icon name="key-round" [size]="16" />
+        <span>Alterar senha</span>
+      </button>
+    </div>
+
+    <div class="ua-menu__group">
+      <button
+        type="button"
+        class="ua-menu__item ua-menu__item--danger"
+        (click)="open('delete'); menu.hide()"
+      >
+        <app-icon name="trash-2" [size]="16" />
+        <span>Excluir conta</span>
+      </button>
+    </div>
+  </div>
+</p-popover>
+
+<!-- Dialog de ações -->
+<p-dialog
+  [visible]="mode() !== null"
+  (visibleChange)="!$event ? close() : null"
+  [modal]="true"
+  [draggable]="false"
+  [style]="{ width: '24rem' }"
+  [header]="dialogTitle()"
+>
+  @if (errorMsg(); as msg) {
+    <div class="ua-form__error" role="alert">
+      <app-icon name="circle-alert" [size]="16" />
+      <span>{{ msg }}</span>
+    </div>
+  }
+
+  @switch (mode()) {
+    @case ('data') {
+      <form class="ua-form" [formGroup]="dataForm" (ngSubmit)="submitData()">
+        <label class="ua-form__field">
+          <span class="ua-form__label">Nome</span>
+          <input pInputText type="text" formControlName="name" />
+        </label>
+        <label class="ua-form__field">
+          <span class="ua-form__label">Telefone</span>
+          <input pInputText type="tel" formControlName="phone" />
+        </label>
+        <div class="ua-form__actions">
+          <button pButton type="button" text severity="secondary" (click)="close()">
+            <span>Cancelar</span>
+          </button>
+          <button pButton type="submit" [disabled]="loading()"><span>Salvar</span></button>
+        </div>
+      </form>
+    }
+
+    @case ('email') {
+      <form class="ua-form" [formGroup]="emailForm" (ngSubmit)="submitEmail()">
+        <label class="ua-form__field">
+          <span class="ua-form__label">Novo e-mail</span>
+          <input pInputText type="email" formControlName="email" />
+        </label>
+        <div class="ua-form__actions">
+          <button pButton type="button" text severity="secondary" (click)="close()">
+            <span>Cancelar</span>
+          </button>
+          <button pButton type="submit" [disabled]="loading()"><span>Salvar</span></button>
+        </div>
+      </form>
+    }
+
+    @case ('password') {
+      <form class="ua-form" [formGroup]="passwordForm" (ngSubmit)="submitPassword()">
+        <label class="ua-form__field">
+          <span class="ua-form__label">Senha atual</span>
+          <p-password
+            formControlName="currentPassword"
+            [feedback]="false"
+            [toggleMask]="true"
+            styleClass="ua-form__password"
+          />
+        </label>
+        <label class="ua-form__field">
+          <span class="ua-form__label">Nova senha</span>
+          <p-password
+            formControlName="newPassword"
+            [feedback]="false"
+            [toggleMask]="true"
+            styleClass="ua-form__password"
+          />
+        </label>
+        <div class="ua-form__actions">
+          <button pButton type="button" text severity="secondary" (click)="close()">
+            <span>Cancelar</span>
+          </button>
+          <button pButton type="submit" [disabled]="loading()"><span>Salvar</span></button>
+        </div>
+      </form>
+    }
+
+    @case ('delete') {
+      <div class="ua-form">
+        <p class="ua-form__warn">
+          Esta ação remove sua conta e encerra a sessão. Não é possível desfazer.
+        </p>
+        <div class="ua-form__actions">
+          <button pButton type="button" text severity="secondary" (click)="close()">
+            <span>Cancelar</span>
+          </button>
+          <button pButton type="button" severity="danger" [disabled]="loading()" (click)="confirmDelete()">
+            <span>Excluir conta</span>
+          </button>
+        </div>
+      </div>
+    }
+  }
+</p-dialog>

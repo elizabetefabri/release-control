@@ -1,0 +1,41 @@
+<section class="rts">
+  <app-page-header title="Release Trains Schedulers" [showToolbarRow]="false" />
+
+  <p-tabs [value]="activeTab()" (valueChange)="activeTab.set($event)">
+    <p-tablist>
+      <p-tab value="agendamentos" class="rts__tab-scheduler">Agendamentos</p-tab>
+      <p-tab value="score" class="rts__tab-score">Score gradual</p-tab>
+    </p-tablist>
+
+    <p-tabpanels>
+      <p-tabpanel value="agendamentos">
+        <app-release-train-calendar>
+          <div rtsToolbar class="rts__toolbar">
+            @for (action of toolbarActions; track action.key) {
+              <button
+                pButton
+                type="button"
+                size="small"
+                severity="secondary"
+                [outlined]="true"
+                class="rts__toolbar-btn"
+                (click)="onToolbarAction(action)"
+              >
+                <app-icon [name]="action.icon" [size]="16" />
+                <span>{{ action.label }}</span>
+              </button>
+            }
+          </div>
+        </app-release-train-calendar>
+      </p-tabpanel>
+
+      <p-tabpanel value="score">
+        <div class="rts__score">
+          <p>Em breve: informações do Score gradual.</p>
+        </div>
+      </p-tabpanel>
+    </p-tabpanels>
+  </p-tabs>
+
+  <app-modal-confirmacao #modalConfirmacao (confirm)="onConfirm($event)" />
+</section>

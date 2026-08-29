@@ -1,0 +1,123 @@
+<section class="calendar">
+  <!-- Cabeçalho de navegação -->
+  <header class="calendar__header">
+    <div class="calendar__nav">
+      <button
+        pButton
+        type="button"
+        severity="secondary"
+        [outlined]="true"
+        size="small"
+        class="calendar__nav-btn"
+        (click)="previousMonth()"
+      >
+        <app-icon name="chevron-left" [size]="16" />
+      </button>
+      <h2 class="calendar__title">{{ headerTitle() }}</h2>
+      <button
+        pButton
+        type="button"
+        severity="secondary"
+        [outlined]="true"
+        size="small"
+        class="calendar__nav-btn"
+        (click)="nextMonth()"
+      >
+        <app-icon name="chevron-right" [size]="16" />
+      </button>
+    </div>
+
+    <div class="calendar__controls">
+      <ng-content select="[rtsToolbar]"></ng-content>
+
+      <!-- <select
+        class="calendar__select"
+        [value]="currentDate().getMonth()"
+        (change)="onMonthChange($event)"
+      >
+        @for (month of monthNames; track $index) {
+          <option [value]="$index">{{ month }}</option>
+        }
+      </select> -->
+
+      <!-- <select class="calendar__select" [value]="currentYear()" (change)="onYearChange($event)">
+        @for (year of yearOptions(); track year) {
+          <option [value]="year">{{ year }}</option>
+        }
+      </select>
+
+      <button
+        pButton
+        type="button"
+        severity="secondary"
+        [outlined]="true"
+        size="small"
+        class="calendar__today-btn"
+        (click)="goToToday()"
+      >
+        Hoje
+      </button> -->
+    </div>
+  </header>
+
+  <!-- Grid do calendário -->
+  <div class="calendar__grid" role="grid" aria-label="Calendário de Release Trains">
+    <!-- Cabeçalho dos dias da semana -->
+    @for (day of weekDays; track day) {
+      <div class="calendar__weekday" role="columnheader">{{ day }}</div>
+    }
+
+    <!-- Células dos dias -->
+    @for (day of calendarDays(); track day.date.getTime()) {
+      <div
+        class="calendar__day"
+        [class.calendar__day--current]="day.isCurrentMonth"
+        [class.calendar__day--today]="day.isToday"
+        [class.calendar__day--past]="day.isPast"
+        role="gridcell"
+      >
+        <header class="calendar__day-header">
+          <a
+            class="calendar__day-number"
+            href="#"
+            (click)="onDayClick($event, day)"
+            [attr.aria-label]="'Ver detalhes do dia ' + day.dayOfMonth"
+          >
+            {{ day.dayOfMonth }}
+          </a>
+          @if (day.isToday) {
+            <span class="calendar__day-badge">day-badge</span>
+          }
+        </header>
+
+        <main class="calendar__day-main">
+          <p class="calendar__day-note">day-note</p>
+        </main>
+
+        <footer class="calendar__day-footer">
+          <span class="calendar__day-weekday">day-weekday-footer</span>
+        </footer>
+      </div>
+    }
+  </div>
+
+  <!-- Sidesheet de detalhes do dia -->
+  <p-drawer
+    [visible]="drawerOpen()"
+    (visibleChange)="drawerOpen.set($event)"
+    [position]="'right'"
+    [dismissible]="true"
+    [style]="{ width: 'min(100%, 24rem)' }"
+    header="Detalhes do dia"
+  >
+    @if (selectedDay(); as day) {
+      <div class="calendar__drawer">
+        <p class="calendar__drawer-date">
+          {{ weekDays[day.date.getDay()] }}, {{ day.dayOfMonth }} de
+          {{ monthNames[day.date.getMonth()] }} de {{ day.date.getFullYear() }}
+        </p>
+        <p class="calendar__drawer-note">Sem agendamentos</p>
+      </div>
+    }
+  </p-drawer>
+</section>

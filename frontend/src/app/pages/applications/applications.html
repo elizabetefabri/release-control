@@ -1,0 +1,37 @@
+<section class="apps">
+  <!-- Header da página (título, perfil e última atualização) -->
+  <app-page-header
+    title="Repositórios"
+    [profile]="profile"
+    [updatedAt]="updatedAt"
+    [showToolbarRow]="false"
+  />
+
+  <!-- Toolbar da página: subtítulo, busca e filtros (funcionais) -->
+  <header class="apps__toolbar">
+    <div class="apps__heading">
+      <p class="apps__subtitle">
+        <app-icon name="layout-dashboard" [size]="16" />
+        <span>Jornadas ativas</span>
+      </p>
+    </div>
+  </header>
+
+  <!-- Tabela Inteligente (tabela-base) com colunas por componente (col-*) -->
+  <app-smart-table
+    [columns]="columns"
+    [value]="facade.rows()"
+    [totalRecords]="facade.total()"
+    [pageSize]="facade.pageSize()"
+    [loading]="facade.loading()"
+    [refreshing]="facade.refreshing()"
+    [error]="facade.error()"
+    [actions]="actions"
+    emptyMessage="Nenhum repositório encontrado."
+    errorMessage="Não foi possível carregar os repositórios."
+    (lazyLoad)="onLazyLoad($event)"
+    (action)="onAction($event)"
+    (rowClick)="onRowClick($event)"
+    (retry)="facade.retry()"
+  />
+</section>

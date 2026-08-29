@@ -1,66 +1,61 @@
-import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { BreadcrumbItem } from '../../types/breadcrumb.interface';
-import { filter, Subscription } from 'rxjs';
-import { BreadcrumbService } from '../../../core/services/Breadcrumb/breadcrumb-service';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  NavigationEnd,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { filter } from 'rxjs';
 
+import { BreadcrumbItem } from '../../../core/types/breadcrumb.type';
+import { Icon } from '../icon/icon';
+
+/**
+ * Breadcrumbs derivados automaticamente da árvore de rotas (data.title),
+ * reativos ao NavigationEnd. Sempre inicia por "Início" (→ /applications).
+ */
 @Component({
   selector: 'app-breadcrumbs',
   standalone: true,
-  imports: [RouterLink],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterLink, Icon],
   templateUrl: './breadcrumbs.html',
   styleUrl: './breadcrumbs.scss',
 })
-export class Breadcrumbs implements OnInit, OnDestroy {
-  private readonly baseItems = signal<BreadcrumbItem[]>([]);
+export class Breadcrumbs {
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
-  readonly items = computed<BreadcrumbItem[]>(() => {
-    const base = this.baseItems();
-    const extra = this.breadcrumbService.extra();
-    return extra ? [...base, extra] : base;
-  });
+  readonly items = signal<BreadcrumbItem[]>([]);
 
-  readonly isHidden = computed(() => this.breadcrumbService.hidden());
-
-  private sub = new Subscription();
-
-  constructor(
-    private router: Router,
-    private breadcrumbService: BreadcrumbService,
-  ) {}
-
-  ngOnInit(): void {
-    this.build(this.router.url);
-
-    this.sub.add(
-      this.router.events
-        .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-        .subscribe((e) => this.build(e.urlAfterRedirects)),
-    );
+  constructor() {
+    this.build();
+    this.router.events
+      .pipe(
+        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+        takeUntilDestroyed(),
+      )
+      .subscribe(() => this.build());
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
+  private build(): void {
+    const crumbs: BreadcrumbItem[] = [{ label: 'Início', href: '/applications' }];
 
-    private build(rawUrl: string): void {
-    const url = rawUrl.split('?')[0];
-    const segments = url.split('/').filter(Boolean);
+    let snapshot: ActivatedRouteSnapshot | null = this.route.root.snapshot;
+    let url = '';
 
-    if (segments.length === 0 || segments[0] === 'dashboard') {
-      this.baseItems.set([]);
-      return;
+    while (snapshot) {
+      const path = snapshot.url.map((s) => s.path).join('/');
+      if (path) url += `/${path}`;
+
+      const title = snapshot.data['title'] as string | undefined;
+      if (title) crumbs.push({ label: title, href: url || '/' });
+
+      snapshot = snapshot.firstChild;
     }
 
-    const sectionSlug = segments[0];
-
-    // /estudos-labs
-    if (sectionSlug === 'estudos-labs') {
-      this.baseItems.set([
-        { label: 'Dashboard', href: '/dashboard' },
-        { label: 'Estudos e Labs' },
-      ]);
-      return;
-    }
+    this.items.set(crumbs);
   }
 }

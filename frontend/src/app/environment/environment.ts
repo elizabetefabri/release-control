@@ -3,7 +3,16 @@
 // que troca este arquivo por environment.prod.ts.
 export const environment = {
   production: false,
-  // URL base da API do backend (template Go + MongoDB + Docker).
-  // Deve bater com API_PORT do .env do backend. Veja INTEGRACAO-BACKEND.md.
+  // URL base da API do backend (Go). Deve bater com a porta do backend.
   apiUrl: 'http://localhost:8083',
+
+  /**
+   * Feature toggles da aplicação.
+   * `mock: true` faz TODAS as camadas de dados usarem os mocks de `core/data`
+   * (sem chamadas HTTP) — útil enquanto o backend não está conectado.
+   * Troque para `false` para consumir a API real.
+   */
+  featureToggle: {
+    mock: true,
+  },
 };

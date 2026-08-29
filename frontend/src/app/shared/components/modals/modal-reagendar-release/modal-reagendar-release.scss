@@ -1,0 +1,16 @@
+.modal-reagendar-release {
+  &__content {
+    padding: 1rem 0;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+
+  &__confirm.p-button {
+    background: var(--color-primary-400);
+    border-color: var(--color-primary-400);
+  }
+}

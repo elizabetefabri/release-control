@@ -1,5 +1,7 @@
 # Dependências
 node_modules/
+.vscode
+.devin
 .pnp/
 .pnp.js
 

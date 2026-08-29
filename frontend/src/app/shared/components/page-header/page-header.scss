@@ -1,0 +1,64 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.page-header {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.page-header__title {
+  margin: 0;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  color: var(--color-text-title);
+  min-width: 0;
+}
+
+.page-header__profile {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.page-header__updated {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* ---- Busca ---- */
+.page-header__search {
+  width: 100%;
+  max-width: 32rem;
+}
+
+:host ::ng-deep .page-header__search .p-inputtext {
+  width: 100%;
+}
+
+/* ---- Ação ---- */
+.page-header__action {
+  gap: 0.5rem;
+  white-space: nowrap;
+
+  app-icon {
+    color: inherit;
+  }
+}
+
+/* ---- Responsivo ---- */
+@media (max-width: 47.9375rem) {
+  .page-header__search {
+    max-width: none;
+  }
+
+  .page-header__action {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,23 +1,15 @@
 @use '../abstracts/variables' as vars;
 @use 'sass:color';
 
-// ============================================================================
-// Google Fonts Import
-// ============================================================================
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
-// @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Lato:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&display=swap');
-
-// ============================================================================
-// Base Typography
-// ============================================================================
 
 body {
   font-family: vars.$font-family-base;
   font-size: vars.$font-size-base;
   font-weight: vars.$font-weight-normal;
   line-height: vars.$line-height-base;
-  color: vars.$color-gray-900;
+  color: var(--color-text-title);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -83,43 +75,8 @@ p {
   }
 }
 
-a {
-  color: vars.$color-primary;
-  text-decoration: none;
-  transition: vars.$transition-base;
 
-  &:hover {
-    color: color.adjust(vars.$color-primary, $lightness: -10%);
-  }
-}
 
-strong {
-  font-weight: vars.$font-weight-bold;
-}
 
-em {
-  font-style: italic;
-}
 
-small {
-  font-size: vars.$font-size-sm;
-}
 
-code {
-  font-family: 'Courier New', monospace;
-  background-color: vars.$color-gray-100;
-  padding: vars.$spacing-xs vars.$spacing-sm;
-  border-radius: vars.$border-radius-sm;
-}
-
-pre {
-  background-color: vars.$color-gray-100;
-  padding: vars.$spacing-md;
-  border-radius: vars.$border-radius-md;
-  overflow-x: auto;
-
-  code {
-    background-color: transparent;
-    padding: 0;
-  }
-}

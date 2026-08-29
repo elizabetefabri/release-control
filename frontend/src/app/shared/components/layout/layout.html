@@ -1,0 +1,33 @@
+<div class="layout" [class.layout--nav-open]="navOpen()">
+  <!-- Sidebar (fixa no desktop, drawer no mobile) -->
+  <aside class="layout__sidebar">
+    <app-sidebar />
+  </aside>
+
+  <!-- Backdrop do drawer no mobile -->
+  <div class="layout__backdrop" (click)="closeNav()" aria-hidden="true"></div>
+
+  <!-- Área principal -->
+  <div class="layout__main">
+    <div class="layout__topbar">
+      <button
+        pButton
+        type="button"
+        text
+        severity="secondary"
+        class="layout__nav-toggle"
+        (click)="toggleNav()"
+        aria-label="Alternar menu"
+      >
+        <app-icon name="align-left" [size]="20" />
+      </button>
+
+    </div>
+
+    <main class="layout__content">
+      <router-outlet />
+    </main>
+
+    <app-footer />
+  </div>
+</div>

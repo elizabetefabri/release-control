@@ -1,0 +1,230 @@
+<!-- Estado de ERRO: substitui a tabela e oferece retry. -->
+@if (error()) {
+  <div class="st-state st-state--error" role="alert">
+    <app-icon name="triangle-alert" [size]="28" />
+    <p class="st-state__title">{{ errorMessage() }}</p>
+    <button pButton type="button" severity="secondary" size="small" (click)="retry.emit()">
+      <app-icon name="rotate-cw" [size]="16" />
+      <span>Tentar novamente</span>
+    </button>
+  </div>
+} @else {
+  <div class="st-wrapper" [class.st-wrapper--refreshing]="refreshing()">
+    <!-- Barra sutil de refresh: atualiza sem apagar os dados exibidos. -->
+    @if (refreshing()) {
+      <div class="st-refreshbar" aria-hidden="true">
+        <p-progressBar mode="indeterminate" [style]="{ height: '3px' }" />
+      </div>
+    }
+
+    <p-table
+      [value]="value()"
+      [columns]="columns()"
+      [lazy]="true"
+      (onLazyLoad)="onLazyLoad($event)"
+      [paginator]="true"
+      [rows]="pageSize()"
+      [totalRecords]="totalRecords()"
+      [rowsPerPageOptions]="rowsPerPageOptions()"
+      [loading]="loading()"
+      [showLoader]="false"
+      [dataKey]="dataKey()"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="{first}–{last} de {totalRecords}"
+      (selectionChange)="selectionChange.emit($event)"
+      styleClass="p-datatable-sm st-table"
+    >
+      <!-- Cabeçalho -->
+      <ng-template pTemplate="header">
+        <tr>
+          @if (showSelection()) {
+            <th [pSelectableRow]="undefined" styleClass="st-checkbox-col">
+              <p-tableHeaderCheckbox />
+            </th>
+          }
+          @for (col of columns(); track col.field) {
+            @if (col.sortable) {
+              <th
+                [pSortableColumn]="col.field"
+                [style.width]="col.width"
+                [class.st-hide-mobile]="col.hideOnMobile"
+                [class]="'st-align-' + (col.align ?? 'left')"
+              >
+                <span class="st-th">
+                  {{ col.header }}
+                  <p-sortIcon [field]="col.field" />
+                </span>
+              </th>
+            } @else {
+              <th
+                [style.width]="col.width"
+                [class.st-hide-mobile]="col.hideOnMobile"
+                [class]="'st-align-' + (col.align ?? 'left')"
+              >
+                {{ col.header }}
+              </th>
+            }
+          }
+          @if (actions().length) {
+            <th class="st-actions-col st-align-center">Ações</th>
+          }
+        </tr>
+      </ng-template>
+
+      <!-- Corpo -->
+      <ng-template pTemplate="body" let-row>
+        <tr class="st-row" (click)="rowClick.emit(row)">
+          @if (showSelection()) {
+            <td styleClass="st-checkbox-col">
+              <p-tableCheckbox [value]="row" />
+            </td>
+          }
+          @for (col of columns(); track col.field) {
+            <td
+              [class.st-hide-mobile]="col.hideOnMobile"
+              [class]="'st-align-' + (col.align ?? 'left')"
+              [attr.data-label]="col.header"
+            >
+              @switch (col.type) {
+                @case ('code') {
+                  <span class="st-code">{{ cellValue(col, row) }}</span>
+                }
+                @case ('badge') {
+                  <p-tag
+                    [value]="badgeLabel(col, row)"
+                    [severity]="badgeSeverity(col, row)"
+                    [rounded]="true"
+                  />
+                }
+                @case ('progress') {
+                  <div class="st-progress">
+                    <p-progressBar
+                      [value]="asNumber(cellValue(col, row))"
+                      [showValue]="false"
+                      [style]="{ height: '8px' }"
+                    />
+                    <span class="st-progress__label">{{ asNumber(cellValue(col, row)) }}%</span>
+                  </div>
+                }
+                @case ('percent') {
+                  <span class="st-percent">{{ asNumber(cellValue(col, row)) }}%</span>
+                }
+                @case ('date') {
+                  <span>{{ $any(cellValue(col, row)) | date: 'dd/MM/yy' }}</span>
+                }
+                @case ('datetime') {
+                  <span>{{ $any(cellValue(col, row)) | date: 'dd/MM/yy - HH:mm' }}</span>
+                }
+                @case ('icon-text') {
+                  <span class="st-icon-text">
+                    @if (iconOf(col, row); as ic) {
+                      <app-icon [name]="ic" [size]="16" />
+                    }
+                    <span>{{ cellValue(col, row) }}</span>
+                  </span>
+                }
+                @case ('link') {
+                  @if (linkTarget(col, row); as target) {
+                    @if (isRouterLink(target)) {
+                      <a class="st-link" [routerLink]="target" (click)="$event.stopPropagation()">{{
+                        cellValue(col, row)
+                      }}</a>
+                    } @else {
+                      <a
+                        class="st-link"
+                        [href]="$any(target)"
+                        [attr.target]="col.external ? '_blank' : null"
+                        [attr.rel]="col.external ? 'noopener noreferrer' : null"
+                        (click)="$event.stopPropagation()"
+                        >{{ cellValue(col, row) }}</a
+                      >
+                    }
+                  } @else {
+                    <span>{{ cellValue(col, row) }}</span>
+                  }
+                }
+                @case ('custom') {
+                  @if (templateFor(col); as tpl) {
+                    <ng-container
+                      *ngTemplateOutlet="
+                        tpl;
+                        context: { $implicit: row, value: cellValue(col, row) }
+                      "
+                    />
+                  } @else {
+                    <span>{{ cellValue(col, row) }}</span>
+                  }
+                }
+                @default {
+                  <span
+                    [pTooltip]="tooltip(col, row) ?? ''"
+                    [tooltipDisabled]="!tooltip(col, row)"
+                    >{{ cellValue(col, row) }}</span
+                  >
+                }
+              }
+            </td>
+          }
+
+          <!-- Célula isolada de ações -->
+          @if (actions().length) {
+            <td class="st-actions-cell st-align-center">
+              <div class="st-actions">
+                @for (act of visibleActions(row); track act.key) {
+                  <button
+                    pButton
+                    type="button"
+                    text
+                    rounded
+                    size="small"
+                    severity="secondary"
+                    [disabled]="isDisabled(act, row)"
+                    (click)="onAction(act.key, row, $event)"
+                    [attr.aria-label]="act.label"
+                  >
+                    <app-icon [name]="act.icon" [size]="16" />
+                  </button>
+                }
+              </div>
+            </td>
+          }
+        </tr>
+      </ng-template>
+
+      <!-- Skeleton do loading inicial -->
+      <ng-template pTemplate="loadingbody">
+        @for (r of skeletonRows(); track r) {
+          <tr>
+            @if (showSelection()) {
+              <td><p-skeleton height="1rem" width="2rem" /></td>
+            }
+            @for (col of columns(); track col.field) {
+              <td [class.st-hide-mobile]="col.hideOnMobile">
+                <p-skeleton height="1rem" [width]="col.type === 'progress' ? '80%' : '60%'" />
+              </td>
+            }
+            @if (actions().length) {
+              <td class="st-align-right"><p-skeleton height="1rem" width="2rem" /></td>
+            }
+          </tr>
+        }
+      </ng-template>
+
+      <!-- Estado vazio -->
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td
+            [attr.colspan]="
+              columns().length + (actions().length ? 1 : 0) + (showSelection() ? 1 : 0)
+            "
+          >
+            <div class="st-state st-state--empty">
+              <app-icon name="inbox" [size]="28" />
+              <p class="st-state__title">{{ emptyMessage() }}</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+}

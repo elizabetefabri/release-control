@@ -1,0 +1,20 @@
+.modal-confirmacao__content {
+  p {
+    margin: 0;
+    color: var(--color-text-body);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+.modal-confirmacao__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+:host ::ng-deep .modal-confirmacao__confirm.p-button {
+  background: var(--color-primary-400);
+  border-color: var(--color-primary-400);
+}

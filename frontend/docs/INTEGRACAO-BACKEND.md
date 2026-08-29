@@ -6,14 +6,14 @@ template para um novo projeto.
 
 ## Onde fica a configuração
 
-A URL da API vive em `src/app/environment/`:
+A URL da API vive em `src/environments/`:
 
 - `environment.ts` — usado por `ng serve` / `npm start` (dev). Aponta para `http://localhost:8083`.
 - `environment.prod.ts` — usado por `ng build` (produção). O `angular.json` troca automaticamente
   um pelo outro via `fileReplacements` na configuration `production`.
 
 ```ts
-// src/app/environment/environment.ts
+// src/environments/environment.ts
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:8083',
@@ -24,10 +24,10 @@ Não existe chamada HTTP no código com URL "hardcoded" — todo serviço lê `e
 
 ## Como as portas precisam bater com o backend
 
-| Onde                  | Porta padrão | Arquivo                                 |
-| --------------------- | ------------ | --------------------------------------- |
-| Frontend (dev server) | `6003`       | `package.json` (`ng serve --port 6003`) |
-| Backend (API)         | `8083`       | `.env` do backend (`API_PORT`)          |
+| Onde | Porta padrão | Arquivo |
+|---|---|---|
+| Frontend (dev server) | `6003` | `package.json` (`ng serve --port 6003`) |
+| Backend (API) | `8083` | `.env` do backend (`API_PORT`) |
 
 Se você mudar `API_PORT` no `.env` do backend (por exemplo, ao rodar vários projetos deste template
 ao mesmo tempo — veja `SETUP-NOVO-PROJETO.md` no repositório do backend), atualize o mesmo valor em
@@ -101,12 +101,12 @@ mostrar "Backend indisponível", veja Troubleshooting abaixo.
 
 ## Troubleshooting
 
-| Sintoma                              | Causa provável                         | Solução                                                                                 |
-| ------------------------------------ | -------------------------------------- | --------------------------------------------------------------------------------------- |
-| "Backend indisponível" no dashboard  | Backend não está rodando               | Rode `make docker-up` na pasta do backend e confira `curl http://localhost:8083/health` |
-| Erro de CORS no console do navegador | Origem do frontend não liberada        | Confira `internal/middleware/cors.go` no backend (por padrão libera tudo)               |
-| `ERR_CONNECTION_REFUSED`             | Porta errada entre frontend e backend  | Confira se `environment.apiUrl` bate com `API_PORT` do `.env` do backend                |
-| Erro de "Mixed Content" em produção  | Frontend em HTTPS chamando API em HTTP | `environment.prod.ts` deve apontar para uma URL `https://`                              |
+| Sintoma | Causa provável | Solução |
+|---|---|---|
+| "Backend indisponível" no dashboard | Backend não está rodando | Rode `make docker-up` na pasta do backend e confira `curl http://localhost:8083/health` |
+| Erro de CORS no console do navegador | Origem do frontend não liberada | Confira `internal/middleware/cors.go` no backend (por padrão libera tudo) |
+| `ERR_CONNECTION_REFUSED` | Porta errada entre frontend e backend | Confira se `environment.apiUrl` bate com `API_PORT` do `.env` do backend |
+| Erro de "Mixed Content" em produção | Frontend em HTTPS chamando API em HTTP | `environment.prod.ts` deve apontar para uma URL `https://` |
 
 ## Ao clonar este template para um novo projeto
 

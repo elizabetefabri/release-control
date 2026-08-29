@@ -1,0 +1,78 @@
+<header class="page-header">
+  <!-- ---------- Linha 1: título/perfil | atualizado em + refresh ---------- -->
+  <div class="grid align-items-center page-header__row">
+    <div class="col-12 md:col-7 flex align-items-center flex-wrap gap-3">
+      <h1 class="page-header__title">{{ title() }}</h1>
+
+      @if (profile(); as perfil) {
+        <span class="page-header__profile flex align-items-center gap-1">
+          <app-icon name="user" [size]="16" />
+          <span>Perfil: {{ perfil }}</span>
+        </span>
+      }
+    </div>
+
+    <div
+      class="col-12 md:col-5 flex align-items-center flex-wrap gap-2 justify-content-start md:justify-content-end"
+    >
+      @if (updatedAt(); as data) {
+        <span class="page-header__updated">
+          Atualizado em {{ data | date: "dd/MM/yyyy 'às' HH:mm:ss" }}
+        </span>
+      }
+
+      @if (showRefresh()) {
+        <button
+          pButton
+          type="button"
+          text
+          rounded
+          severity="secondary"
+          size="small"
+          class="page-header__refresh"
+          aria-label="Atualizar"
+        >
+          <app-icon name="refresh-cw" [size]="16" />
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- ---------- Linha 2: busca | botão de ação ---------- -->
+  @if (showToolbarRow()) {
+    <div class="grid align-items-center page-header__row">
+      <div class="col-12 md:col-7 flex align-items-center">
+        @if (showSearch()) {
+          <p-iconfield class="page-header__search">
+            <p-inputicon><app-icon name="search" [size]="16" /></p-inputicon>
+            <input pInputText type="text" [placeholder]="searchPlaceholder()" aria-label="Buscar" />
+            @if (showMic()) {
+              <p-inputicon><app-icon name="mic" [size]="16" /></p-inputicon>
+            }
+          </p-iconfield>
+        }
+      </div>
+
+      <div
+        class="col-12 md:col-5 flex align-items-center justify-content-start md:justify-content-end"
+      >
+        @if (showAction()) {
+          <button
+            pButton
+            type="button"
+            severity="secondary"
+            [outlined]="true"
+            size="small"
+            class="page-header__action"
+            (click)="onActionClick()"
+          >
+            <app-icon [name]="actionIcon()" [size]="16" />
+            <span>{{ actionLabel() }}</span>
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <app-breadcrumbs class="layout__breadcrumbs" />
+</header>

@@ -4,15 +4,24 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 6003",
-    "start:dev": "ng serve --port 6003",
+    "start:rm-local": "ng serve --port 6003",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage",
+    "lint": "ng lint",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.scss\" \"src/**/*.html\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"src/**/*.scss\" \"src/**/*.html\"",
+    "e2e": "ng e2e",
+    "serve:ssr": "ng run frontend:serve-ssr",
     "serve:ssr:frontend": "node dist/frontend/server/server.mjs"
   },
   "private": true,
   "packageManager": "npm@10.9.7",
   "dependencies": {
+    "@angular/animations": "^21.2.20",
     "@angular/common": "^21.2.0",
     "@angular/compiler": "^21.2.0",
     "@angular/core": "^21.2.0",
@@ -21,6 +30,7 @@
     "@angular/platform-server": "^21.2.0",
     "@angular/router": "^21.2.0",
     "@angular/ssr": "^21.2.9",
+    "@lucide/angular": "^1.25.0",
     "@ngrx/effects": "^21.1.1",
     "@ngrx/entity": "^21.1.1",
     "@ngrx/store": "^21.1.1",
@@ -29,7 +39,6 @@
     "chart.js": "^4.5.1",
     "express": "^5.1.0",
     "primeflex": "^4.0.0",
-    "primeicons": "^7.0.0",
     "primeng": "^21.1.9",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -45,11 +54,11 @@
     "@types/uuid": "^10.0.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
+    "jest-fetch-mock": "^3.0.3",
     "jest-preset-angular": "^17.0.0",
     "jsdom": "^28.0.0",
     "prettier": "^3.8.1",
     "ts-jest": "^29.4.11",
-    "typescript": "~5.9.2",
-    "vitest": "^4.0.8"
+    "typescript": "~5.9.2"
   }
 }

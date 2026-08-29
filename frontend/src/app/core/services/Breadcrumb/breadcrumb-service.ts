@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { BreadcrumbItem } from '../../../shared/types/breadcrumb.interface';
+import { BreadcrumbItem } from '../../types/breadcrumb.type';
 
 @Injectable({
   providedIn: 'root',

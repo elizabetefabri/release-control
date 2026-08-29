@@ -1,0 +1,42 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.table-toolbar {
+  width: 100%;
+  min-width: 0;
+  padding: 0.5rem 0;
+}
+
+.table-toolbar__btn {
+  gap: 0.5rem;
+  white-space: nowrap;
+
+  app-icon {
+    color: inherit;
+  }
+}
+
+.table-toolbar__filter {
+  flex-shrink: 0;
+
+  app-icon {
+    color: inherit;
+  }
+}
+
+/* ---- Responsivo ---- */
+@media (max-width: 47.9375rem) {
+  /* no mobile as ações quebram em linha e o "ml-auto" é neutralizado
+     para não empurrar os botões para fora da área visível */
+  .table-toolbar__clear.ml-auto,
+  .table-toolbar__filter.ml-auto {
+    margin-left: 0 !important;
+  }
+
+  .table-toolbar__btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}

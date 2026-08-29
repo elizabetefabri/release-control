@@ -1,0 +1,67 @@
+<nav class="sb" aria-label="Navegação principal">
+  <!-- 1. Logo -->
+  <div class="sb__logo">
+    <span class="sb__logo-mark">
+      <img class="sb__logo-image" src="./images/logo.png" alt="Rollout Service" />
+    </span>
+  </div>
+
+  <!-- Navegação -->
+  <div class="sb__nav">
+    @for (item of navItems; track item.label) {
+      @if (item.links) {
+        <!-- Grupo: abre o sidesheet fixo à direita -->
+        <div class="sb-group" [class.sb-group--open]="isOpen(item)">
+          <button
+            type="button"
+            class="sb-item sb-item--btn"
+            [class.sb-item--active]="isGroupActive(item)"
+            (click)="toggleGroup(item)"
+            aria-haspopup="true"
+            [attr.aria-expanded]="isOpen(item)"
+          >
+            <app-icon class="sb-item__icon" [name]="item.icon" [size]="20" />
+            <span class="sb-item__label">{{ item.label }}</span>
+          </button>
+
+          <div class="sb-flyout" (mouseleave)="closeGroup()">
+            @for (link of item.links; track link.route) {
+              <a
+                class="sb-flyout__link"
+                [routerLink]="link.route"
+                routerLinkActive="sb-flyout__link--active"
+                (click)="closeGroup()"
+              >
+                {{ link.label }}
+              </a>
+            }
+          </div>
+        </div>
+      } @else {
+        <!-- Link direto -->
+        <a class="sb-item" [routerLink]="item.route" routerLinkActive="sb-item--active">
+          <app-icon class="sb-item__icon" [name]="item.icon" [size]="20" />
+          <span class="sb-item__label">{{ item.label }}</span>
+        </a>
+      }
+    }
+  </div>
+
+  <!-- Rodapé: usuário + Sair -->
+  <div class="sb__footer">
+    <div class="sb__user">
+      <app-user-avatar />
+    </div>
+    <button
+      pButton
+      type="button"
+      text
+      severity="secondary"
+      class="sb__logout"
+      aria-label="Sair"
+      (click)="logout()"
+    >
+      <app-icon name="arrow-right-from-line" [size]="20" />
+    </button>
+  </div>
+</nav>

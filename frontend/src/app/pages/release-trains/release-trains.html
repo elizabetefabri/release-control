@@ -1,0 +1,45 @@
+<section class="rt">
+  <!-- Header da página (título, perfil, atualizado em, busca e ação) -->
+  <app-page-header
+    title="Release Train"
+    [profile]="profile"
+    [updatedAt]="updatedAt"
+    actionLabel="Gerenciar Release Train"
+    actionIcon="settings"
+    [actionRoute]="'/release-train-schedulers'"
+  />
+
+  <!-- Barra de ações da tabela -->
+  <app-table-toolbar
+    (reschedule)="onToolbarReschedule()"
+    (cancel)="onToolbarCancel()"
+    (pause)="onToolbarPause()"
+    (clear)="onToolbarClear()"
+    (filter)="onToolbarFilter()"
+  />
+
+  <!-- Tabela Inteligente (tabela-base) com colunas por componente (col-*) -->
+  <app-smart-table
+    [columns]="columns"
+    [value]="facade.rows()"
+    [totalRecords]="facade.total()"
+    [pageSize]="facade.pageSize()"
+    [loading]="facade.loading()"
+    [refreshing]="facade.refreshing()"
+    [error]="facade.error()"
+    [actions]="actions"
+    [showSelection]="true"
+    [selectedItems]="selectedItems()"
+    emptyMessage="Nenhum repositório encontrado."
+    errorMessage="Não foi possível carregar os repositórios."
+    (lazyLoad)="onLazyLoad($event)"
+    (action)="onAction($event)"
+    (rowClick)="onRowClick($event)"
+    (selectionChange)="onSelectionChange($event)"
+    (retry)="facade.retry()"
+  />
+
+  <!-- Modais -->
+  <app-modal-reagendar-release #modalReagendar />
+  <app-modal-cancelar #modalCancelar />
+</section>

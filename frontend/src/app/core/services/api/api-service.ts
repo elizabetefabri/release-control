@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environment/environment';
-import { ApiResponse } from '../../../shared/types/api-response.interface';
+import { ApiResponse } from '../../types/api-response.type';
+import { PagedResult } from '../../models/pagination.models';
 
 
 /**
@@ -26,6 +27,17 @@ export class ApiService {
     return this.http
       .get<ApiResponse<T>>(`${this.baseUrl}${path}`)
       .pipe(map((res) => res.data as T));
+  }
+
+  /**
+   * GET de coleção paginada. Serializa `params` na query-string e
+   * devolve o `PagedResult<T>` já desembrulhado do envelope `{ data }`.
+   */
+  getPaged<T>(path: string, params?: Record<string, string>): Observable<PagedResult<T>> {
+    const httpParams = new HttpParams({ fromObject: params ?? {} });
+    return this.http
+      .get<ApiResponse<PagedResult<T>>>(`${this.baseUrl}${path}`, { params: httpParams })
+      .pipe(map((res) => res.data as PagedResult<T>));
   }
 
   post<T>(path: string, body: unknown): Observable<T> {

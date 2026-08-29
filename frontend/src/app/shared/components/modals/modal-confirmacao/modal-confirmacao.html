@@ -1,0 +1,36 @@
+<p-dialog
+  [modal]="true"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="modal-confirmacao"
+  [style]="{ width: 'min(100%, 37rem)' }"
+  [header]="title()"
+  [visible]="visible()"
+  (visibleChange)="visible.set($event)"
+>
+  <div class="modal-confirmacao__content">
+    <p>{{ message() }}</p>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="modal-confirmacao__footer">
+      <button
+        pButton
+        type="button"
+        severity="secondary"
+        [outlined]="true"
+        label="Cancelar"
+        (click)="onCancel()"
+      ></button>
+      <button
+        pButton
+        type="button"
+        severity="primary"
+        class="modal-confirmacao__confirm"
+        label="Confirmar"
+        (click)="onConfirm()"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>

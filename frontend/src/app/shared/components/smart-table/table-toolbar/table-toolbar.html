@@ -1,0 +1,88 @@
+<div class="table-toolbar flex align-items-center flex-wrap gap-2">
+  <!-- 1. Reagendar release -->
+  @if (showReschedule()) {
+    <button
+      pButton
+      type="button"
+      severity="secondary"
+      [outlined]="true"
+      size="small"
+      class="table-toolbar__btn"
+      [disabled]="rescheduleDisabled()"
+      (click)="onReschedule()"
+    >
+      <app-icon [name]="rescheduleIcon()" [size]="16" />
+      <span>{{ rescheduleLabel() }}</span>
+    </button>
+  }
+
+  <!-- 2. Cancelar release -->
+  @if (showCancel()) {
+    <button
+      pButton
+      type="button"
+      severity="secondary"
+      [outlined]="true"
+      size="small"
+      class="table-toolbar__btn"
+      [disabled]="cancelDisabled()"
+      (click)="onCancel()"
+    >
+      <app-icon [name]="cancelIcon()" [size]="16" />
+      <span>{{ cancelLabel() }}</span>
+    </button>
+  }
+
+  <!-- 3. Pausar release (desabilitado por padrão) -->
+  @if (showPause()) {
+    <button
+      pButton
+      type="button"
+      severity="secondary"
+      [outlined]="true"
+      size="small"
+      class="table-toolbar__btn"
+      [disabled]="pauseDisabled()"
+      (click)="onPause()"
+    >
+      <app-icon [name]="pauseIcon()" [size]="16" />
+      <span>{{ pauseLabel() }}</span>
+    </button>
+  }
+
+  <!-- 4. Limpar seleção — alinhado à direita -->
+  @if (showClear()) {
+    <button
+      pButton
+      type="button"
+      text
+      severity="secondary"
+      size="small"
+      class="table-toolbar__btn table-toolbar__clear ml-auto"
+      [disabled]="clearDisabled()"
+      (click)="onClear()"
+    >
+      <app-icon [name]="clearIcon()" [size]="16" />
+      <span>{{ clearLabel() }}</span>
+    </button>
+  }
+
+  <!-- 5. Filtro (somente ícone, no canto direito) -->
+  @if (showFilter()) {
+    <button
+      pButton
+      type="button"
+      severity="secondary"
+      [outlined]="true"
+      size="small"
+      class="table-toolbar__filter"
+      [class.ml-auto]="!showClear()"
+      [pTooltip]="filterLabel()"
+      tooltipPosition="top"
+      [attr.aria-label]="filterLabel()"
+      (click)="onFilter()"
+    >
+      <app-icon [name]="filterIcon()" [size]="16" />
+    </button>
+  }
+</div>

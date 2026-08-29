@@ -1,10 +1,10 @@
-@if (!isHidden() && items().length) {
+@if (items().length > 1) {
   <nav class="nav" aria-label="Breadcrumb">
     <ol class="list">
       @for (item of items(); track item.label; let index = $index; let isLast = $last) {
         <li class="item">
           @if (index > 0) {
-            <i class="pi pi-chevron-right separatorIcon" aria-hidden="true"></i>
+            <app-icon class="separator" name="chevron-right" [size]="14" />
           }
           @if (item.href && !isLast) {
             <a class="link" [routerLink]="item.href">{{ item.label }}</a>

@@ -1,123 +1,82 @@
-// ============================================================================
-// Breakpoints for responsive design
-// ============================================================================
-
 @use 'sass:map';
 
 $breakpoints: (
-  'mobile': 20rem,      // 320px
-  'mobile-sm': 23.4375rem,  // 375px
-  'mobile-md': 26.5625rem,  // 425px
-  'tablet': 48rem,      // 768px
-  'desktop': 64rem,     // 1024px
-  'desktop-lg': 80rem,  // 1280px
-  'desktop-xl': 90rem,  // 1440px
-  'desktop-xxl': 120rem // 1920px
+  'mobile': 20rem,
+  'mobile-sm': 23.4375rem,
+  'mobile-md': 26.5625rem,
+  'tablet': 48rem,
+  'desktop': 64rem,
+  'desktop-lg': 80rem,
+  'desktop-xl': 90rem,
+  'desktop-xxl': 120rem
 );
 
-// Mixin for media queries
 @mixin media($breakpoint) {
   @media (min-width: map.get($breakpoints, $breakpoint)) {
     @content;
   }
 }
 
-// ============================================================================
-// CSS Custom Properties (Design System)
-// ============================================================================
-
 :root {
-  /* 📐 Layout */
-  --sidebar-width-expanded: 15rem;
-  --sidebar-width-collapsed: 4rem;
-  --header-height: 4rem;
-  --icon-size: 1.25rem;
-  --text-xs: 0.75rem;
-  --radius-md: 0.75rem;
+  // Background
+  --color-background-page: var(--color-white);
+  --color-background-default: var(--color-white);
 
-  /* 🎨 Nova base */
-  --color-bg: #f1f1f1;
-  --color-surface: #fbfaf8;
-  --color-border-subtle: #e2ded9;
-  --color-sidebar-bg-dark: #201f25;
-  --color-header-bg: #f3f1ee;
-  --color-footer-bg: #edeae6;
+  // Header
+  --color-header-background: var(--color-neutral-150);
+  --color-header-border: var(--color-neutral-300);
 
-  /* ✍️ Tipografia */
-  --color-text-primary: #4d4d47;
-  --color-text-secondary: #6b6a64;
-  --color-text-muted: #8a887f;
-  --color-text-on-dark: #ffffff;
+  // Sidebar
+  --color-sidebar-background: var(--color-neutral-900);
+  --color-sidebar-border: #2d2b36;
 
-  /* 🌸 Ações */
-  --color-primary: #e59a9a;
-  --color-primary-hover: #d88787;
-  --color-primary-border: #d4a39a;
-  --color-primary-soft: #f3c6c6;
-  --color-accent: #f1c27d;
+  // Footer
+  --color-footer-background: var(--color-neutral-200);
 
-  /* 📌 Ícones */
-  --color-icon-default: #6b6a64;
-  --color-icon-active: #e59a9a;
-  --color-icon-muted: #a5a39a;
+  // Cards
+  --color-card-background: var(--color-white);
+  --color-card-border: var(--color-neutral-300);
 
-  /* 🚦 Status */
-  --color-status-success: #0f7a55;
-  --color-status-info: #355f8c;
-  --color-status-warning: #ffb84d;
-  --color-status-danger: #c23a3a;
-  --color-status-neutral: #555b6e;
+  // Modal
+  --color-modal-background: var(--color-white);
 
-  --text: #fefefe;
-  --black: #000100;
-  --foreground: #0e0e11;
-  --color-amarelo: #ffb84d;
-  --color-amarelo-shadow: #ffcc70;
-  --color-rosa: #ea4c89;
-  --color-rose: #ff8899;
-  --color-rose-hover: #ff7086;
-  --color-roxo: #8f48eb;
-  --color-azul: #1da1f2;
-  --color-green-10: #ccffeb;
-  --color-green-50: #00ff88;
+  // Inputs
+  --color-input-background: var(--color-white);
+  --color-input-border: var(--color-neutral-300);
 
-  /* Sidebar width used by the main layout (updated at runtime) */
-  --sidebar-current-width: var(--sidebar-width-collapsed);
+  // Buttons
+  --color-button-primary-background: var(--color-primary-200);
+  --color-button-primary-hover: var(--color-primary-300);
 
-  --layout-main-margin-left: calc(var(--sidebar-current-width) + 2rem);
-  --layout-main-margin-right: 2rem;
+  --color-button-secondary-background: var(--color-white);
+  --color-button-secondary-border: var(--color-neutral-300);
 
-  --container-width: 90rem;
+  // Typography
+  --color-text-title: var(--color-neutral-800);
+  --color-text-body: var(--color-neutral-700);
+  --color-text-secondary: var(--color-neutral-600);
+  --color-text-disabled: var(--color-neutral-500);
+
+  // Status
+  --color-success-background: var(--color-success-50);
+  --color-success-border: var(--color-success-200);
+  --color-success-text: var(--color-success-500);
+
+  --color-warning-background: var(--color-warning-50);
+  --color-warning-border: var(--color-warning-200);
+  --color-warning-text: var(--color-warning-500);
+
+  --color-danger-background: var(--color-danger-50);
+  --color-danger-border: var(--color-danger-200);
+  --color-danger-text: var(--color-danger-500);
+
+  --color-info-background: var(--color-info-50);
+  --color-info-border: var(--color-info-200);
+  --color-info-text: var(--color-info-500);
 }
 
 
-// ============================================================================
-// Colors
-// ============================================================================
-
-$color-primary: #007bff;
-$color-secondary: #6c757d;
-$color-success: #28a745;
-$color-danger: #dc3545;
-$color-warning: #ffc107;
-$color-info: #17a2b8;
-
-$color-gray-900: #1a1a1a;
-$color-gray-800: #2d2d2d;
-$color-gray-700: #404040;
-$color-gray-600: #595959;
-$color-gray-500: #808080;
-$color-gray-400: #b3b3b3;
-$color-gray-300: #d9d9d9;
-$color-gray-200: #e6e6e6;
-$color-gray-100: #f2f2f2;
-$color-white: #ffffff;
-
-// ============================================================================
-// Typography
-// ============================================================================
-
-$font-family-base: "Oswald", sans-serif;
+$font-family-base: "Open Sans", sans-serif;
 $font-size-base: 1rem;
 $font-size-lg: 1.25rem;
 $font-size-sm: 0.875rem;
@@ -132,9 +91,11 @@ $font-weight-normal: 400;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
-// ============================================================================
-// Spacing
-// ============================================================================
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 
 $spacing-unit: 1rem;
 
@@ -146,30 +107,8 @@ $spacing-xl: 2rem;
 $spacing-xxl: 3rem;
 $spacing-xxxl: 4rem;
 
-// ============================================================================
-// Border Radius
-// ============================================================================
-
 $border-radius-xs: 0.25rem;
 $border-radius-sm: 0.5rem;
 $border-radius-md: 1rem;
 $border-radius-lg: 1.5rem;
 $border-radius-full: 9999rem;
-
-// ============================================================================
-// Shadows
-// ============================================================================
-
-$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-$shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-
-// ============================================================================
-// Transitions
-// ============================================================================
-
-$transition-base: all 0.3s ease-in-out;
-$transition-fast: all 0.15s ease-in-out;
-$transition-slow: all 0.6s ease-in-out;

@@ -1,0 +1,83 @@
+# ========================================
+# ROLLOUT PORTAL - Git Ignore Configuration
+# ========================================
+
+# ======================
+# Angular / npm
+# ======================
+node_modules/
+npm-debug.log*
+npm-error.log*
+yarn-error.log*
+yarn-debug.log*
+
+# ======================
+# Build Output
+# ======================
+/dist/
+/tmp/
+/out-tsc/
+/bazel-out/
+
+# ======================
+# Angular / IDEs
+# ======================
+.angular
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ======================
+# Testing
+# ======================
+/coverage/
+/test-results/
+.nyc_output/
+
+# ======================
+# Local Development
+# ======================
+.env.local
+.env.*.local
+.pem
+.key
+
+# ======================
+# Vercel
+# ======================
+.vercel/
+.vercelignore
+
+# ======================
+# System Files
+# ======================
+.AppleDouble
+.LSOverride
+*.bak
+*.tmp
+*.cache
+
+# ======================
+# IDE Generated
+# ======================
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# ======================
+# OS Files
+# ======================
+.vscode-test
+.vscode-test.log
+
+# ======================
+# Custom
+# ======================
+# Uncomment if using environment files locally
+# .env

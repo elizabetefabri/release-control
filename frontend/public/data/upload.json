@@ -1,0 +1,264 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "description": "Dados mockados para o modal de upload de responsáveis pela GMUD e calendário de feriados nacionais",
+    "updatedAt": "2026-08-29T00:00:00Z"
+  },
+  "responsaveis": [
+    {
+      "idRM": "rm-001",
+      "idBlock": "block-0001",
+      "racf": "JOHNAS",
+      "email": "jonathan.silva@email.com",
+      "telefoneRM": "+55 11 91234-5678",
+      "data": "2026-01-15T09:00:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    },
+    {
+      "idRM": "rm-002",
+      "idBlock": "block-0002",
+      "racf": "MARIACF",
+      "email": "maria.costa@email.com",
+      "telefoneRM": "+55 11 92345-6789",
+      "data": "2026-01-22T10:30:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    },
+    {
+      "idRM": "rm-003",
+      "idBlock": "block-0003",
+      "racf": "PEDROAL",
+      "email": "pedro.almeida@email.com",
+      "telefoneRM": "+55 21 93456-7890",
+      "data": "2026-02-05T08:45:00Z",
+      "responsavelGMUD": false,
+      "role": "GUEST"
+    },
+    {
+      "idRM": "rm-004",
+      "idBlock": "block-0004",
+      "racf": "ANASOUZ",
+      "email": "ana.souza@email.com",
+      "telefoneRM": "+55 21 94567-8901",
+      "data": "2026-02-10T11:00:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    },
+    {
+      "idRM": "rm-005",
+      "idBlock": "block-0005",
+      "racf": "LUCASO",
+      "email": "lucas.oliveira@email.com",
+      "telefoneRM": "+55 31 95678-9012",
+      "data": "2026-03-03T09:15:00Z",
+      "responsavelGMUD": false,
+      "role": "BOM"
+    },
+    {
+      "idRM": "rm-006",
+      "idBlock": "block-0006",
+      "racf": "JULIAM",
+      "email": "julia.martins@email.com",
+      "telefoneRM": "+55 31 96789-0123",
+      "data": "2026-03-18T10:00:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    },
+    {
+      "idRM": "rm-007",
+      "idBlock": "block-0007",
+      "racf": "CARLOSR",
+      "email": "carlos.ribeiro@email.com",
+      "telefoneRM": "+55 41 97890-1234",
+      "data": "2026-04-07T08:30:00Z",
+      "responsavelGMUD": false,
+      "role": "GUEST"
+    },
+    {
+      "idRM": "rm-008",
+      "idBlock": "block-0008",
+      "racf": "FERNAF",
+      "email": "fernanda.ferreira@email.com",
+      "telefoneRM": "+55 41 98901-2345",
+      "data": "2026-04-21T14:00:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    },
+    {
+      "idRM": "rm-009",
+      "idBlock": "block-0009",
+      "racf": "BRUNOL",
+      "email": "bruno.lima@email.com",
+      "telefoneRM": "+55 51 99012-3456",
+      "data": "2026-05-05T09:45:00Z",
+      "responsavelGMUD": false,
+      "role": "BOM"
+    },
+    {
+      "idRM": "rm-010",
+      "idBlock": "block-0010",
+      "racf": "PATRICP",
+      "email": "patricia.pereira@email.com",
+      "telefoneRM": "+55 51 90123-4567",
+      "data": "2026-05-20T10:15:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    },
+    {
+      "idRM": "rm-011",
+      "idBlock": "block-0011",
+      "racf": "GUSTAVC",
+      "email": "gustavo.carvalho@email.com",
+      "telefoneRM": "+55 11 91234-8765",
+      "data": "2026-06-08T11:30:00Z",
+      "responsavelGMUD": false,
+      "role": "GUEST"
+    },
+    {
+      "idRM": "rm-012",
+      "idBlock": "block-0012",
+      "racf": "LARIS",
+      "email": "larissa.santos@email.com",
+      "telefoneRM": "+55 11 92345-9876",
+      "data": "2026-06-25T08:00:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    },
+    {
+      "idRM": "rm-013",
+      "idBlock": "block-0013",
+      "racf": "RAFAELB",
+      "email": "rafael.barbosa@email.com",
+      "telefoneRM": "+55 21 93456-1987",
+      "data": "2026-07-10T09:30:00Z",
+      "responsavelGMUD": false,
+      "role": "BOM"
+    },
+    {
+      "idRM": "rm-014",
+      "idBlock": "block-0014",
+      "racf": "CAMILM",
+      "email": "camila.moura@email.com",
+      "telefoneRM": "+55 21 94567-2098",
+      "data": "2026-07-22T10:45:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    },
+    {
+      "idRM": "rm-015",
+      "idBlock": "block-0015",
+      "racf": "DIEGOG",
+      "email": "diego.gomes@email.com",
+      "telefoneRM": "+55 31 95678-3109",
+      "data": "2026-08-05T11:15:00Z",
+      "responsavelGMUD": false,
+      "role": "GUEST"
+    },
+    {
+      "idRM": "rm-016",
+      "idBlock": "block-0016",
+      "racf": "VANESSA",
+      "email": "vanessa.araujo@email.com",
+      "telefoneRM": "+55 31 96789-4210",
+      "data": "2026-08-18T09:00:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    },
+    {
+      "idRM": "rm-017",
+      "idBlock": "block-0017",
+      "racf": "THIAGOC",
+      "email": "thiago.costa@email.com",
+      "telefoneRM": "+55 41 97890-5321",
+      "data": "2026-09-02T10:30:00Z",
+      "responsavelGMUD": false,
+      "role": "BOM"
+    },
+    {
+      "idRM": "rm-018",
+      "idBlock": "block-0018",
+      "racf": "BRENDAP",
+      "email": "brenda.pinto@email.com",
+      "telefoneRM": "+55 41 98901-6432",
+      "data": "2026-09-15T08:45:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    },
+    {
+      "idRM": "rm-019",
+      "idBlock": "block-0019",
+      "racf": "FELIPER",
+      "email": "felipe.rocha@email.com",
+      "telefoneRM": "+55 51 99012-7543",
+      "data": "2026-10-08T11:00:00Z",
+      "responsavelGMUD": false,
+      "role": "GUEST"
+    },
+    {
+      "idRM": "rm-020",
+      "idBlock": "block-0020",
+      "racf": "AMANDAT",
+      "email": "amanda.teixeira@email.com",
+      "telefoneRM": "+55 51 90123-8654",
+      "data": "2026-10-25T09:15:00Z",
+      "responsavelGMUD": true,
+      "role": "RM"
+    }
+  ],
+  "calendario": {
+    "ano": 2026,
+    "feriadosNacionais": [
+      {
+        "data": "2026-01-01",
+        "nome": "Confraternização Universal",
+        "tipo": "nacional"
+      },
+      {
+        "data": "2026-04-03",
+        "nome": "Paixão de Cristo",
+        "tipo": "nacional"
+      },
+      {
+        "data": "2026-04-21",
+        "nome": "Tiradentes",
+        "tipo": "nacional"
+      },
+      {
+        "data": "2026-05-01",
+        "nome": "Dia Mundial do Trabalho",
+        "tipo": "nacional"
+      },
+      {
+        "data": "2026-09-07",
+        "nome": "Independência do Brasil",
+        "tipo": "nacional"
+      },
+      {
+        "data": "2026-10-12",
+        "nome": "Nossa Senhora Aparecida",
+        "tipo": "nacional"
+      },
+      {
+        "data": "2026-11-02",
+        "nome": "Finados",
+        "tipo": "nacional"
+      },
+      {
+        "data": "2026-11-15",
+        "nome": "Proclamação da República",
+        "tipo": "nacional"
+      },
+      {
+        "data": "2026-11-20",
+        "nome": "Dia Nacional de Zumbi e da Consciência Negra",
+        "tipo": "nacional"
+      },
+      {
+        "data": "2026-12-25",
+        "nome": "Natal",
+        "tipo": "nacional"
+      }
+    ]
+  }
+}
