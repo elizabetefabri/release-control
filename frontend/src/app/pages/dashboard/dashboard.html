@@ -1,0 +1,31 @@
+<div class="app-container">
+  <div class="app-backdrop" aria-hidden="true"></div>
+
+  <div class="app-main">
+    <app-header></app-header>
+    <main class="app-content">
+      <app-breadcrumbs class="app-breadcrumbs" />
+
+      <div
+        class="backend-status"
+        [class.backend-status--online]="backendStatus() === 'online'"
+        [class.backend-status--offline]="backendStatus() === 'offline'"
+      >
+        @switch (backendStatus()) {
+          @case ('checking') {
+            <span>Conectando ao backend…</span>
+          }
+          @case ('online') {
+            <span>Backend conectado</span>
+          }
+          @case ('offline') {
+            <span>Backend indisponível — confira INTEGRACAO-BACKEND.md</span>
+          }
+        }
+      </div>
+
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  </div>
+</div>

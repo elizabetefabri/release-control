@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@use 'shared/styles/abstracts/variables' as vars;
+@use 'shared/styles/base/reset';
+@use 'shared/styles/base/typography';
+@import 'primeicons/primeicons.css';
+
+:root {
+  // Cor primária global do Aura → usada como fallback em botões/inputs
+  --p-primary-color: #201F25;
+  --p-primary-contrast-color: #ffffff;
+
+  // Botão primário (background, border, texto)
+  --p-button-primary-background: #201F25;
+  --p-button-primary-hover-background: #2d2c33;
+  --p-button-primary-active-background: #2d2c33;
+  --p-button-primary-border-color: #201F25;
+  --p-button-primary-hover-border-color: #2d2c33;
+  --p-button-primary-active-border-color: #2d2c33;
+  --p-button-primary-color: #ffffff;
+  --p-button-primary-hover-color: #ffffff;
+  --p-button-primary-active-color: #ffffff;
+
+  // Foco de inputs (remove verde/azul do Aura)
+  --p-inputtext-focus-border-color: #201F25;
+  --p-focus-ring-color: rgba(32, 31, 37, 0.15);
+  --p-focus-ring-shadow: 0 0 0 0.15rem rgba(32, 31, 37, 0.15);
+}
