@@ -7,7 +7,11 @@ import (
 	"time"
 
 	"backend/config"
+	"backend/internal/handler"
 	"backend/internal/middleware"
+	"backend/internal/repository/mongodb"
+	"backend/internal/seed"
+	"backend/internal/usecase"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -34,21 +38,28 @@ func main() {
 	}
 	log.Printf("conectado ao MongoDB: %s (db: %s)", cfg.MongoURI, cfg.DBName)
 
-	// db := client.Database(cfg.DBName)
-	//
-	// A partir daqui, para cada novo recurso (ex: "Product"):
-	//   1. Crie a entidade em internal/domain/entity/
-	//   2. Crie a interface do repositório em internal/domain/repository/
-	//   3. Implemente o repositório MongoDB em internal/repository/mongodb/
-	//      (use client.Database(cfg.DBName) para obter o *mongo.Database)
-	//   4. Crie os use cases em internal/usecase/
-	//   5. Crie o handler em internal/handler/ e registre a rota abaixo
-	// Veja PADROES.md, seção "Evolução", para o passo a passo completo.
+	db := client.Database(cfg.DBName)
+
+	userRepo := mongodb.NewUserRepository(db)
+	applicationRepo := mongodb.NewApplicationRepository(db)
+
+	authUC := usecase.NewAuthUseCase(userRepo)
+	applicationUC := usecase.NewApplicationUseCase(applicationRepo)
+
+	authHandler := handler.NewAuthHandler(authUC)
+	applicationHandler := handler.NewApplicationHandler(applicationUC)
+
+	ctx, cancel = context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	if err := seed.Seed(ctx, applicationRepo, userRepo); err != nil {
+		log.Fatalf("falha ao fazer seed: %v", err)
+	}
+	log.Println("seed concluído")
 
 	mux := http.NewServeMux()
 
-	// TODO: registre as rotas dos seus recursos aqui, ex:
-	// productHandler.RegisterRoutes(mux)
+	authHandler.RegisterRoutes(mux)
+	applicationHandler.RegisterRoutes(mux)
 
 	mux.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")

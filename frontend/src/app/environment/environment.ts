@@ -13,6 +13,6 @@ export const environment = {
    * Troque para `false` para consumir a API real.
    */
   featureToggle: {
-    mock: true,
+    mock: false,
   },
 };
